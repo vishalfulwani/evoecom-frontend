@@ -8,7 +8,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { APP_BASE_URL } from "../../../../constants";
+import { API_BASE_URL } from "../../../../constants";
 
 
 const Page = ()=>{
@@ -33,7 +33,7 @@ const Page = ()=>{
   
         try {
           // const response = await axios.get<ApiResponse>('/api/get-products');
-          const response = await axios.get<ApiResponse>(`${APP_BASE_URL}/get-products`);
+          const response = await axios.get<ApiResponse>(`${API_BASE_URL}/get-products`);
           const allProducts = response.data.data as IProduct[];
           console.log("Fetched all products:", allProducts);
   

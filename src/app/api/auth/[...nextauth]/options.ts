@@ -11,7 +11,7 @@ import FacebookProvider from "next-auth/providers/facebook";
 // Unified Authentication Options
 export const authOptions: NextAuthOptions = {
   providers: [
-    CredentialsProvider({
+    CredentialsProvider({ 
       id: "credentials",
       name: "Credentials",
       credentials: {

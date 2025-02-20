@@ -357,6 +357,7 @@ const productSchema: Schema<IProduct> = new Schema(
     },
     rating: {
       type: String,
+      default: '5',
     },
     reviews: {
       type: [reviewSchema], // Embedding the review schema

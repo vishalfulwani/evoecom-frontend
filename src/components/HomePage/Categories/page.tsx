@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import { ApiResponse } from '@/helpers/ApiResponse';
-import { APP_BASE_URL } from '../../../../constants';
+import { API_BASE_URL } from '../../../../constants';
 import { IProduct } from '@/models/product.models';
 import { useRouter } from 'next/navigation';
 
@@ -56,7 +56,7 @@ export default function Categories() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const allProducts = await axios.get<ApiResponse>(`${APP_BASE_URL}/get-products`);
+                const allProducts = await axios.get<ApiResponse>(`${API_BASE_URL}/get-products`);
                 const productData = allProducts.data.data as IProduct[];
                 setProducts(productData);
     

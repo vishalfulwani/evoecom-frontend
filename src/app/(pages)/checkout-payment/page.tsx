@@ -13,258 +13,298 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { APP_BASE_URL } from "../../../../constants";
+import { API_BASE_URL } from "../../../../constants";
 
 const Page = () => {
-   
+
 	const cart = useSelector((state: RootState) => state.cart.cart);
-    const dispatch = useDispatch();
-    const [discount, setDiscount] = useState<number>(0);
-    const [code, setCode] = useState('');
-    const [couponCode, setCouponCode] = useState('');
-    const [codeMsg, setCodeMsg] = useState('');
+	const dispatch = useDispatch();
+	const [discount, setDiscount] = useState<number>(0);
+	const [code, setCode] = useState('');
+	const [couponCode, setCouponCode] = useState('');
+	const [codeMsg, setCodeMsg] = useState('');
 
-    const [userId, setUserId] = useState<string>('');
-    const [updateDetail, setUpdateDetail] = useState(0);
-
-
-
-    const [isLoading, setIsLoading] = useState(false);
-
-    // Load cart from localStorage when component mounts
-    // useEffect(() => {
-    //     const storedCart = localStorage.getItem('cart');
-    //     if (storedCart) {
-    //         const parsedCart: ICartItem[] = JSON.parse(storedCart);
-    //         parsedCart.forEach(item => dispatch(addToCart(item)));
-    //     }
-    // }, [dispatch]);
-
-    // Save cart to localStorage whenever it changes
-    useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(cart));
-    }, [cart]);
-
-    const handleClearCart = () => {
-        dispatch(clearCart());
-    };
-
-    // session
-    const { data: session, status } = useSession();
-    console.log(session?.platform)
-    useEffect(() => {
-        console.log(session)
-    }, [session]);
-
-    // update coupon
-    const updateCoupon = async () => {
-        try {
-            console.log("userrrrr", userId)
-            // const response = await axios.post('/api/admin/update-coupon', {
-            const response = await axios.post(`${APP_BASE_URL}/admin/update-coupon`, {
-                couponCode,
-                userId
-            })
-            const msg = response.data.message
-        } catch (error) {
-            console.error("Error applying coupon", error)
-        }
-    }
-
-
-    // calculate total amount to pay
-    const calculateTotal = () => {
-        const subtotal = cart.reduce((acc, item) => acc + parseFloat(item.product.sellingPrice) * item.quantity, 0);
-        const total = subtotal - (subtotal * discount / 100);
-        return total.toFixed(2);
-    };
+	const [userId, setUserId] = useState<string>('');
+	const [updateDetail, setUpdateDetail] = useState(0);
 
 
 
-    // buy ===================================================================
+	const [isLoading, setIsLoading] = useState(false);
 
-    // check user logged or not
-    // const { data: session } = useSession()
-    const router = useRouter()
+	// Load cart from localStorage when component mounts
+	// useEffect(() => {
+	//     const storedCart = localStorage.getItem('cart');
+	//     if (storedCart) {
+	//         const parsedCart: ICartItem[] = JSON.parse(storedCart);
+	//         parsedCart.forEach(item => dispatch(addToCart(item)));
+	//     }
+	// }, [dispatch]);
 
-    const [address, setAddress] = useState<{ street?: string; city?: string; state?: string; postalCode?: string }>({});
-    // const [userId, setUserId] = useState<string>('');
-    const [street, setStreet] = useState<string>(session?.address?.street || "");
-    const [city, setCity] = useState<string>(session?.address?.city || "");
-    const [state, setState] = useState<string>(session?.address?.state || "");
-    const [postalCode, setPostalCode] = useState<string>(session?.address?.postalCode || "");
-    const [phone, setPhone] = useState<string>(session?.phone || "");
+	// Save cart to localStorage whenever it changes
+	useEffect(() => {
+		localStorage.setItem('cart', JSON.stringify(cart));
+	}, [cart]);
 
+	const handleClearCart = () => {
+		dispatch(clearCart());
+	};
 
-    const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+	// session
+	const { data: session, status } = useSession();
+	console.log(session?.platform)
+	useEffect(() => {
+		console.log(session)
+	}, [session]);
 
-
-    // get user
-    const [users, setUsers] = useState<IUser[]>([])
-
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                // const allUsers = await axios.get<ApiResponse>('/api/get-users')
-                const allUsers = await axios.get<ApiResponse>(`${APP_BASE_URL}/get-users`)
-                const userData = allUsers.data.data as []
-                setUsers(userData)
-
-                const you = userData.filter((data: any) => {
-                    return data?._id.toString() === userId
-                })
-            } catch (error) {
-                console.error("Error fetching users:", error)
-            }
-        }
-        fetchUsers()
-        console.log(address, "00000")
-    }, [userId, updateDetail])
-
-    useEffect(() => {
-        const id = session?.user?._id as string
-        setUserId(id)
-    }, [])
+	// update coupon
+	const updateCoupon = async () => {
+		try {
+			console.log("userrrrr", userId)
+			// const response = await axios.post('/api/admin/update-coupon', {
+			const response = await axios.post(`${API_BASE_URL}/admin/update-coupon`, {
+				couponCode,
+				userId
+			})
+			const msg = response.data.message
+		} catch (error) {
+			console.error("Error applying coupon", error)
+		}
+	}
 
 
-    // Dynamically load Razorpay script
-    useEffect(() => {
-        const script = document.createElement('script');
-        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-        script.async = true;
-        document.body.appendChild(script);
-
-        return () => {
-            document.body.removeChild(script);
-        };
-    }, []);
+	// calculate total amount to pay
+	const calculateTotal = () => {
+		const subtotal = cart.reduce((acc, item) => acc + parseFloat(item.product.sellingPrice) * item.quantity, 0);
+		const total = subtotal - (subtotal * discount / 100);
+		return total.toFixed(2);
+	};
 
 
 
+	// buy ===================================================================
 
-    const handleNextClick = async () => {
+	// check user logged or not
+	// const { data: session } = useSession()
+	const router = useRouter()
 
-        setIsLoading(true)
+	const [address, setAddress] = useState<{ street?: string; city?: string; state?: string; postalCode?: string }>({});
+	// const [userId, setUserId] = useState<string>('');
+	const [street, setStreet] = useState<string>(session?.address?.street || "");
+	const [city, setCity] = useState<string>(session?.address?.city || "");
+	const [state, setState] = useState<string>(session?.address?.state || "");
+	const [postalCode, setPostalCode] = useState<string>(session?.address?.postalCode || "");
+	const [phone, setPhone] = useState<string>(session?.phone || "");
+
+
+	const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
+
+	// get user
+	const [users, setUsers] = useState<IUser[]>([])
+
+	useEffect(() => {
+		const fetchUsers = async () => {
+			try {
+				// const allUsers = await axios.get<ApiResponse>('/api/get-users')
+				const allUsers = await axios.get<ApiResponse>(`${API_BASE_URL}/get-users`)
+				const userData = allUsers.data.data as []
+				setUsers(userData)
+
+				const you = userData.filter((data: any) => {
+					return data?._id.toString() === userId
+				})
+			} catch (error) {
+				console.error("Error fetching users:", error)
+			}
+		}
+		fetchUsers()
+		console.log(address, "00000")
+	}, [userId, updateDetail])
+
+	useEffect(() => {
+		const id = session?.user?._id as string
+		setUserId(id)
+	}, [])
+
+
+	// Dynamically load Razorpay script
+	useEffect(() => {
+		const script = document.createElement('script');
+		script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+		script.async = true;
+		document.body.appendChild(script);
+
+		return () => {
+			document.body.removeChild(script);
+		};
+	}, []);
+
+
+
+
+	const handleNextClick = async () => {
+
+		setIsLoading(true)
 
 		if (!session) {
 			// If no session, redirect to sign-in page
 			router.push('/signin'); // Adjust the path if necessary
 			toast.success("Signin first")
 			return
-		  } 
+		}
 
 		const storedAddress = localStorage.getItem("address");
-        const addressData = storedAddress ? JSON.parse(storedAddress) : null;
-        
+		const addressData = storedAddress ? JSON.parse(storedAddress) : null;
+
 		const cartDetails = localStorage.getItem("cartDetails");
-        // if (cartDetails) {
-        const parsedCartDetails = cartDetails ? JSON.parse(cartDetails) : null;
+		// if (cartDetails) {
+		const parsedCartDetails = cartDetails ? JSON.parse(cartDetails) : null;
 		// }
 
-        const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
-        const address = {
-            street: addressData.street,
-            city: addressData.email,
-            state: addressData.state,
-            postalCode: addressData.phone,
-        };
+		const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
+		const address = {
+			street: addressData.street,
+			city: addressData.email,
+			state: addressData.state,
+			postalCode: addressData.phone,
+		};
 
-        try {
+		try {
 
-            const totalAmount = calculateTotal()
+			const totalAmount = calculateTotal()
 
-            const response = await axios.post('/api/create-buy-order', {
-            // const response = await axios.post(`${APP_BASE_URL}/create-buy-order`, {
-                userId:session?.user?._id,
-                cartItems,
-                address,
-                totalAmount:parsedCartDetails.orderTotal,
-                phone:addressData.phone,
-                couponCode:parsedCartDetails.code,
-            });
-            console.log(totalAmount)
+			// const response = await axios.post('/api/create-buy-order', {
+			const response = await axios.post(`${API_BASE_URL}/create-buy-order`, {
+				userId: session?.user?._id,
+				cartItems,
+				address,
+				totalAmount: parsedCartDetails.orderTotal,
+				phone: addressData.phone,
+				couponCode: parsedCartDetails.code,
+			});
+			console.log(totalAmount)
 
-            toast.success("Order Created")
+			toast.success("Order Created")
 
-            const order = response.data
+			const order = response.data
 
-            // if (!order.id) {
-            //   toast({
-            //     title: 'Failed',
-            //     description: 'Order creation failed',
-            //     className: "toast-error"
-            //   })
-            // }
+			// if (!order.id) {
+			//   toast({
+			//     title: 'Failed',
+			//     description: 'Order creation failed',
+			//     className: "toast-error"
+			//   })
+			// }
 
-            // Razorpay options
-            const options = {
-                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
-                amount: order.amount,
-                currency: order.currency,
-                name: 'E-commerce',
-                description: 'Shopping',
-                order_id: order.id,
-                handler: async (response: any) => {
-                    try {
-                        // Send payment details to backend for verification
-                        const verificationRes = await fetch('/api/verify-ecommerce-payment', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                razorpay_order_id: response.razorpay_order_id,
-                                razorpay_payment_id: response.razorpay_payment_id,
-                                razorpay_signature: response.razorpay_signature,
-                            }),
-                        });
+			// Razorpay options
+			// const options = {
+			//     key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
+			//     amount: order.amount,
+			//     currency: order.currency,
+			//     name: 'E-commerce',
+			//     description: 'Shopping',
+			//     order_id: order.id,
+			//     handler: async (response: any) => {
+			//         try {
+			//             // Send payment details to backend for verification
+			//             const verificationRes = await fetch('/api/verify-ecommerce-payment', {
+			//                 method: 'POST',
+			//                 headers: {
+			//                     'Content-Type': 'application/json',
+			//                 },
+			//                 body: JSON.stringify({
+			//                     razorpay_order_id: response.razorpay_order_id,
+			//                     razorpay_payment_id: response.razorpay_payment_id,
+			//                     razorpay_signature: response.razorpay_signature,
+			//                 }),
+			//             });
 
-                        const verificationData = await verificationRes.json();
+			//             const verificationData = await verificationRes.json();
 
-                        if (verificationRes.ok) {
-                            // alert('Payment successful!');
-                            toast('Payment initialization successful',)
-                        } else {
-                            // alert(`Payment failed: ${verificationData.error}`);
-                            toast.error(`Payment initialization failed: ${verificationData.error}`)
-                        }
-                    } catch (error: any) {
-                        toast.error(`Verification failed: ${error.message}`)
-                    }
-                },
-                prefill: {
-                    userId: userId,
-                    phone: phone,
-                    address: address
-                },
-                notes: {
-                    address: 'User Address',
-                },
-                theme: {
-                    color: '#3399cc',
-                },
-            };
+			//             if (verificationRes.ok) {
+			//                 // alert('Payment successful!');
+			//                 toast('Payment initialization successful',)
+			//             } else {
+			//                 // alert(`Payment failed: ${verificationData.error}`);
+			//                 toast.error(`Payment initialization failed: ${verificationData.error}`)
+			//             }
+			//         } catch (error: any) {
+			//             toast.error(`Verification failed: ${error.message}`)
+			//         }
+			//     },
+			//     prefill: {
+			//         userId: userId,
+			//         phone: phone,
+			//         address: address
+			//     },
+			//     notes: {
+			//         address: 'User Address',
+			//     },
+			//     theme: {
+			//         color: '#3399cc',
+			//     },
+			// };
+
+
+			const options = {
+				key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
+				amount: order.amount,
+				currency: order.currency,
+				name: 'E-commerce',
+				description: 'Shopping',
+				order_id: order.id,
+				handler: async (response: any) => {
+					try {
+						// Send payment details to backend for verification
+						// const { data } = await axios.post('/api/verify-ecommerce-payment', {
+						const { data } = await axios.post(`${API_BASE_URL}/verify-ecommerce-payment`, {
+							razorpay_order_id: response.razorpay_order_id,
+							razorpay_payment_id: response.razorpay_payment_id,
+							razorpay_signature: response.razorpay_signature,
+						});
+
+						if (data.success) {
+							toast.success('Payment initialization successful');
+						} else {
+							toast.error(`Payment initialization failed: ${data.error}`);
+						}
+					} catch (error: any) {
+						toast.error(`Verification failed: ${error.response?.data?.message || error.message}`);
+					}
+				},
+				prefill: {
+					userId: userId,
+					phone: phone,
+					address: address
+				},
+				notes: {
+					address: 'User Address',
+				},
+				theme: {
+					color: '#3399cc',
+				},
+			};
 
 
 
-            const rzp = new (window as any).Razorpay(options);
-            rzp.open();
+			const rzp = new (window as any).Razorpay(options);
+			rzp.open();
 
-            // handleClearCart()
-            setIsLoading(false)
+			// handleClearCart()
+			setIsLoading(false)
 
-            toast.success("Order Placed")
-            if (discount) {
-                updateCoupon()
-            }
+			toast.success("Order Placed")
+			if (discount) {
+				updateCoupon()
+			}
 
-        } catch (error) {
-            const axiosError = error as AxiosError<ApiResponse>
-            let errorMessage = axiosError.response?.data.message
-            toast.error(errorMessage || "Order failed")
-            setIsLoading(false)
-        }
-    };
+		} catch (error) {
+			const axiosError = error as AxiosError<ApiResponse>
+			let errorMessage = axiosError.response?.data.message
+			toast.error(errorMessage || "Order failed")
+			setIsLoading(false)
+		}
+	};
 
 
 
@@ -433,9 +473,9 @@ const Page = () => {
 												</div>
 											</div> */}
 											<div className="row">
-													<div className="col-md-6">
-														<div className="d-grid">	<div onClick={()=>handleNextClick()} className="btn btn-light btn-ecomm"><i className="bx bx-chevron-left"></i>Payment</div>
-														</div>
+												<div className="col-md-6">
+													<div className="d-grid">	<div onClick={() => handleNextClick()} className="btn btn-light btn-ecomm"><i className="bx bx-chevron-left"></i>Payment</div>
+													</div>
 												</div>
 											</div>
 

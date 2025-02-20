@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
+import { API_BASE_URL } from '../../../constants';
 
 
 // Define schema using Zod
@@ -41,7 +42,7 @@ const AddReview = ({ productId }: { productId: string }) => {
             
                 console.log("datttttttttta", data);
             
-                const response = await axios.post('/api/review', {
+                const response = await axios.post(`${API_BASE_URL}/review`, {
                   productId,
                   review: {
                     userId: session.user._id, // Use the actual user ID

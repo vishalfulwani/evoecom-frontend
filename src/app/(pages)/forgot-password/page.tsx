@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Link from "next/link";
-import { APP_BASE_URL } from "../../../../constants";
+import { API_BASE_URL } from "../../../../constants";
 
 const forgetPasswordSchema = z.object({
     email: z.string().email("Please enter a valid email").min(1, "Email is required"),
@@ -26,8 +26,8 @@ const Page = () => {
     const onSubmit = async (data: ForgotPasswordFormData) => {
         setIsSubmitting(true);
         try {
-            const response = await axios.post('/api/forgot-password', data, {
-            // const response = await axios.post(`${APP_BASE_URL}/forgot-password`, data, {
+            // const response = await axios.post('/api/forgot-password', data, {
+            const response = await axios.post(`${API_BASE_URL}/forgot-password`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

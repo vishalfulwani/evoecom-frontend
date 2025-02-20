@@ -7,7 +7,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import ProductCard from "@/components/ProductCard/page"
 import Link from "next/link"
-import { APP_BASE_URL } from "../../../../../constants"
+import { API_BASE_URL } from "../../../../../constants"
 import { useParams, useSearchParams } from "next/navigation"
 
 
@@ -27,7 +27,7 @@ const Page = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const allProducts = await axios.get<ApiResponse>(`${APP_BASE_URL}/get-products`);
+                const allProducts = await axios.get<ApiResponse>(`${API_BASE_URL}/get-products`);
                 const productData = allProducts.data.data as IProduct[];
     
                 // Filter products based on category

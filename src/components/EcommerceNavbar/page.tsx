@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { APP_BASE_URL } from '../../../constants';
+import { API_BASE_URL } from '../../../constants';
 
 const Navbar = () => {
 
@@ -62,7 +62,7 @@ const Navbar = () => {
         setCheck(1)
         try {
             console.log("userrrrr", userId)
-            const response = await axios.post('/api/admin/apply-coupon', {
+            const response = await axios.post(`${API_BASE_URL}/admin/apply-coupon`, {
                 code,
                 userId
             })
@@ -116,7 +116,7 @@ const Navbar = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const allUsers = await axios.get<ApiResponse>('/api/get-users')
+                const allUsers = await axios.get<ApiResponse>(`${API_BASE_URL}/get-users`)
                 const userData = allUsers.data.data as []
                 setUsers(userData)
 
@@ -215,7 +215,7 @@ const Navbar = () => {
         const fetchProducts = async () => {
             setIsSubmitting(true)
             try {
-                const allProducts = await axios.get<ApiResponse>(`${APP_BASE_URL}/get-products`)
+                const allProducts = await axios.get<ApiResponse>(`${API_BASE_URL}/get-products`)
                 const productData = allProducts.data.data as IProduct[]
                 setProducts(productData)
             } catch (error) {
@@ -282,7 +282,7 @@ const Navbar = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const allProducts = await axios.get<ApiResponse>(`${APP_BASE_URL}/get-products`);
+                const allProducts = await axios.get<ApiResponse>(`${API_BASE_URL}/get-products`);
                 const productData = allProducts.data.data as IProduct[];
                 setItems(productData);
 

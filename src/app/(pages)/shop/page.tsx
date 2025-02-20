@@ -5,7 +5,7 @@ import { ApiResponse } from "@/helpers/ApiResponse"
 import { IProduct } from "@/models/product.models"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { APP_BASE_URL } from "../../../../constants"
+import { API_BASE_URL } from "../../../../constants"
 import ProductCard from "@/components/ProductCard/page"
 import Link from "next/link"
 
@@ -26,7 +26,7 @@ const [isFilterApplied, setIsFilterApplied] = useState<boolean>(false);
 useEffect(() => {
     const fetchProducts = async () => {
         try {
-            const allProducts = await axios.get<ApiResponse>(`${APP_BASE_URL}/get-products`);
+            const allProducts = await axios.get<ApiResponse>(`${API_BASE_URL}/get-products`);
             const productData = allProducts.data.data as IProduct[];
             setProducts(productData);
 
@@ -61,13 +61,14 @@ const sortProducts = (criteria: string, data: any[]) => {
         case 'default':
             return data.sort(() => Math.random() - 0.5);
         case 'priceHighToLow':
-            return data.sort((a, b) => a.sellingPrice - b.sellingPrice);
-        case 'priceLowToHigh':
             return data.sort((a, b) => b.sellingPrice - a.sellingPrice);
+            case 'priceLowToHigh':
+            return data.sort((a, b) => a.sellingPrice - b.sellingPrice);
         case 'averageRating':
+            return data.sort((a, b) => a.rating - b.rating);
+            case 'popularity':
             return data.sort((a, b) => b.rating - a.rating);
-        case 'popularity':
-            return data.sort((a, b) => b.popularity - a.popularity);
+            // return data.sort((a, b) => b.popularity - a.popularity);
         case 'newness':
             return data.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         default:

@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { API_BASE_URL } from "../../../../constants";
 
 const CheckoutSummary = () => {
 
@@ -58,7 +59,8 @@ const CheckoutSummary = () => {
     const applyCoupon = async () => {
         try {
             console.log("userrrrr", userId)
-            const response = await axios.post('/api/admin/apply-coupon', {
+            // const response = await axios.post('/api/admin/apply-coupon', {
+            const response = await axios.post(`${API_BASE_URL}/admin/apply-coupon`, {
                 code,
                 userId
             })
@@ -95,7 +97,7 @@ const CheckoutSummary = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const allUsers = await axios.get<ApiResponse>('/api/get-users')
+                const allUsers = await axios.get<ApiResponse>(`${API_BASE_URL}/get-users`)
                 const userData = allUsers.data.data as []
                 setUsers(userData)
 

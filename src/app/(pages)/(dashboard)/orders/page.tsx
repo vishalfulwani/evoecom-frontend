@@ -8,7 +8,7 @@ import { IUser } from "@/models/user.models";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { APP_BASE_URL } from "../../../../../constants";
+import { API_BASE_URL } from "../../../../../constants";
 
 
 const Page = () => {
@@ -41,7 +41,7 @@ const Page = () => {
             setIsLoading(true);
             try {
                 // const response = await axios.get<{ data: IOrder[] }>('/api/get-buy-order', {
-                const response = await axios.get<{ data: IOrder[] }>(`${APP_BASE_URL}/get-buy-order`, {
+                const response = await axios.get<{ data: IOrder[] }>(`${API_BASE_URL}/get-buy-order`, {
                     params: {
                         userId: session?.user?._id, // Pass userId from session
                     },
@@ -70,7 +70,7 @@ const Page = () => {
         const fetchProducts = async () => {
             try {
                 // const allProducts = await axios.get<ApiResponse>('/api/get-products')
-                const allProducts = await axios.get<ApiResponse>(`${APP_BASE_URL}/get-products`)
+                const allProducts = await axios.get<ApiResponse>(`${API_BASE_URL}/get-products`)
                 const productData = allProducts.data.data as IProduct[]
                 setProducts(productData)
             } catch (error) {
@@ -116,7 +116,7 @@ const Page = () => {
         const fetchUsers = async () => {
             try {
                 // const allUsers = await axios.get<ApiResponse>('/api/get-all-users')
-                const allUsers = await axios.get<ApiResponse>(`${APP_BASE_URL}/get-users`)
+                const allUsers = await axios.get<ApiResponse>(`${API_BASE_URL}/get-users`)
                 const userData = allUsers.data.data as []
 
                 const data = userData.filter((data: any) => data._id === session?.user?._id)

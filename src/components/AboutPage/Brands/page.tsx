@@ -1,7 +1,7 @@
 import { ApiResponse } from "@/helpers/ApiResponse";
 import { IBrand } from "@/models/brands.models";
 import axios, { AxiosError } from "axios";
-import { APP_BASE_URL } from "../../../../constants";
+import { API_BASE_URL } from "../../../../constants";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import mongoose from "mongoose";
@@ -18,7 +18,7 @@ const Brands = () => {
       const fetchProducts = async () => {
         setIsSubmitting(true);
         try {
-          const allProducts = await axios.get<ApiResponse>(`${APP_BASE_URL}/get-brands`);
+          const allProducts = await axios.get<ApiResponse>(`${API_BASE_URL}/get-brands`);
           const productData = allProducts.data.data as IBrand[];
           console.log(productData, "pdddddd"); // This will log the fetched data
           setBrands(productData);

@@ -2,7 +2,7 @@
 import { IBanner } from "@/models/banner.models";
 import mongoose from "mongoose";
 import { useEffect, useState } from "react";
-import { APP_BASE_URL } from "../../../../constants";
+import { API_BASE_URL } from "../../../../constants";
 import axios from "axios";
 import { ApiResponse } from "@/helpers/ApiResponse";
 import Image from "next/image";
@@ -19,7 +19,7 @@ export default function HomePageBanner() {
       const fetchProducts = async () => {
         setIsSubmitting(true);
         try {
-          const allProducts = await axios.get<ApiResponse>(`${APP_BASE_URL}/get-banners`);
+          const allProducts = await axios.get<ApiResponse>(`${API_BASE_URL}/get-banners`);
           const productData = allProducts.data.data as IBanner[];
           console.log(productData, "pdddddd"); // This will log the fetched data
           setBanners(productData);

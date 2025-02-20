@@ -5,7 +5,7 @@ import { ApiResponse } from "@/helpers/ApiResponse";
 import { IProduct } from "@/models/product.models";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { APP_BASE_URL } from "../../../../constants";
+import { API_BASE_URL } from "../../../../constants";
 import { useRouter } from "next/navigation";
 
 const Page = ()=>{
@@ -24,7 +24,7 @@ const Page = ()=>{
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const allProducts = await axios.get<ApiResponse>(`${APP_BASE_URL}/get-products`);
+                const allProducts = await axios.get<ApiResponse>(`${API_BASE_URL}/get-products`);
                 const productData = allProducts.data.data as IProduct[];
                 setProducts(productData);
     

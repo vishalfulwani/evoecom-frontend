@@ -50,8 +50,8 @@ const handleAddToCart = (product: any) => {
                 <div className="card-header bg-transparent border-bottom-0">
                     <div className="d-flex align-items-center justify-content-end gap-3">
                         <div>
-                            <div className="product-compare"><span><i className='bx bx-git-compare'></i> Compare</span>
-                            </div>
+                            {/* <div className="product-compare"><span><i className='bx bx-git-compare'></i> Compare</span>
+                            </div> */}
                         </div>
                         {/* <div>
                             <div className="product-wishlist"> <WishlistBtn productId={product._id.toString()}/>

@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { APP_BASE_URL } from "../../../../constants";
+import { API_BASE_URL } from "../../../../constants";
 
 // Zod validation schema
 const signUpSchema = z.object({
@@ -39,8 +39,8 @@ const Page = () => {
     const onSubmit = async (data: SignUpFormData) => {
         setIsSubmitting(true);
         try {
-            // const response = await axios.post(`${APP_BASE_URL}/signup`, data, {
-            const response = await axios.post(`/api/signup`, data, {
+            const response = await axios.post(`${API_BASE_URL}/signup`, data, {
+            // const response = await axios.post(`/api/signup`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

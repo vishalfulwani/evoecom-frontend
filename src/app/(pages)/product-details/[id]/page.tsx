@@ -13,7 +13,7 @@ import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { APP_BASE_URL } from "../../../../../constants";
+import { API_BASE_URL } from "../../../../../constants";
 
 
 const Page = () => {
@@ -51,7 +51,7 @@ const Page = () => {
             setIsSubmitting(true)
             try {
                 // const allProducts = await axios.get<ApiResponse>('/api/get-products')
-                const allProducts = await axios.get<ApiResponse>(`${APP_BASE_URL}/get-products`)
+                const allProducts = await axios.get<ApiResponse>(`${API_BASE_URL}/get-products`)
                 console.log("*************", allProducts)
                 const productData = allProducts.data.data as []
                 console.log(productData, "*************")
@@ -67,37 +67,6 @@ const Page = () => {
         }
         fetchProducts()
     }, [])
-
-
-    // useEffect(() => {
-    //     const viewProduct = products.filter((product) => product._id.toString() === id)
-    //     setProduct(viewProduct)
-    //     console.log("=-0987=-=-=", viewProduct)
-    //     if (viewProduct.length > 0) {
-    //         setImgUrl(viewProduct[0].images[0] || "")
-    //     }
-    //     const sizes = viewProduct[0]?.sizes;
-    //     const colors = viewProduct[0]?.availableColors;
-    //     const sizesArray = sizes?.split(","); // Convert the string to an array
-    //     const colorsArray = colors?.split(","); // Convert the string to an array
-    //     setSizesArray(sizesArray);
-    //     setColorsArray(colorsArray);
-
-    //     // If the viewed product exists, find products with a similar category
-    //     if (viewProduct[0]) {
-    //         const similarCategoryProducts = products.filter(
-    //             (product) => product.category === viewProduct[0]?.category && product._id.toString() !== id
-    //         );
-    //         console.log("ppp",similarCategoryProducts)
-    //         if (similarCategoryProducts.length > 5){
-    //             const productsRecommended = getRandomElements(similarCategoryProducts, 5)
-    //             console.log("prdd",productsRecommended)
-    //             setSimilarProducts(productsRecommended); // Assuming you have a `setSimilarProducts` state
-    //         }
-    //         console.log("prddsimiii",similarCategoryProducts)
-    //         setSimilarProducts(similarCategoryProducts); // Assuming you have a `setSimilarProducts` state
-    //     }
-    // }, [products])
 
 
     useEffect(() => {

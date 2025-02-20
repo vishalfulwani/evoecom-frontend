@@ -11,7 +11,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { APP_BASE_URL } from "../../../../constants";
+import { API_BASE_URL } from "../../../../constants";
 
 const Page = () => {
 
@@ -93,7 +93,7 @@ const Page = () => {
         try {
             console.log("userrrrr", userId)
             // const response = await axios.post('/api/admin/apply-coupon', {
-            const response = await axios.post(`${APP_BASE_URL}/admin/apply-coupon`, {
+            const response = await axios.post(`${API_BASE_URL}/admin/apply-coupon`, {
                 code,
                 userId
             })
@@ -137,7 +137,7 @@ const Page = () => {
         const fetchUsers = async () => {
             try {
                 // const allUsers = await axios.get<ApiResponse>('/api/get-users')
-                const allUsers = await axios.get<ApiResponse>(`${APP_BASE_URL}/get-users`)
+                const allUsers = await axios.get<ApiResponse>(`${API_BASE_URL}/get-users`)
                 const userData = allUsers.data.data as []
                 setUsers(userData)
 

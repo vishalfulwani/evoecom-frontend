@@ -39,7 +39,6 @@ export default function Home() {
           <BottomProducts />
 
 
-          <AddReview productId="5852844585"/>
         </div>
       </div>
 

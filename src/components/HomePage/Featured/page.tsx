@@ -7,7 +7,7 @@ import getRandomElements from "@/helpers/getRandomElements"
 import { IProduct } from "@/models/product.models"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { APP_BASE_URL } from "../../../../constants"
+import { API_BASE_URL } from "../../../../constants"
 
 export default function Featured() {
     const [products, setProducts] = useState<IProduct[]>([])
@@ -16,7 +16,7 @@ export default function Featured() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const allProducts = await axios.get<ApiResponse>(`${APP_BASE_URL}/get-products`)
+                const allProducts = await axios.get<ApiResponse>(`${API_BASE_URL}/get-products`)
                 console.log("*************", allProducts)
                 const productData = allProducts.data.data as []
                 console.log(productData, "*************")
