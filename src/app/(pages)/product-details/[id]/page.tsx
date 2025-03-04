@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { API_BASE_URL } from "../../../../../constants";
+import ProductImageCarousel from "@/components/ProductImageCrousal/page";
 
 
 const Page = () => {
@@ -74,11 +75,11 @@ const Page = () => {
         const viewProduct = products.filter((product) => product._id.toString() === id);
         setProduct(viewProduct);
         console.log("View Product:", viewProduct);
-    
+
         if (viewProduct.length > 0) {
             // Set the first image URL if available
             setImgUrl(viewProduct[0]?.images?.[0] || "");
-    
+
             // Process sizes and colors
             const sizes = viewProduct[0]?.sizes || "";
             const colors = viewProduct[0]?.availableColors || "";
@@ -86,13 +87,13 @@ const Page = () => {
             const colorsArray = colors.split(",").map((color) => color.trim()); // Trim spaces
             setSizesArray(sizesArray);
             setColorsArray(colorsArray);
-    
+
             // Find products with a similar category
             const similarCategoryProducts = products.filter(
                 (product) => product.category === viewProduct[0]?.category && product._id.toString() !== viewProduct[0]._id.toString()
             );
             console.log("Similar Products:", similarCategoryProducts);
-    
+
             // If there are more than 5 similar products, randomly select 5
             if (similarCategoryProducts.length > 5) {
                 const productsRecommended = getRandomElements(similarCategoryProducts, 5);
@@ -105,7 +106,7 @@ const Page = () => {
         }
     }, [products]);
 
-    console.log("-----",similarProducts)
+    console.log("-----", similarProducts)
 
     useEffect(() => {
         if (products.length > 0) {
@@ -147,18 +148,11 @@ const Page = () => {
                             <div className="product-detail-body">
                                 <div className="row g-0">
                                     <div className="col-12 col-lg-5">
-                                        <div className="image-zoom-section">
+                                        {/* <div className="image-zoom-section">
                                             <div className="product-gallery owl-carousel owl-theme border mb-3 p-3 owl-loaded owl-drag" data-slider-id="1">
 
                                                 <div className="owl-stage-outer">
                                                     <div className="owl-stage" style={{ "transform": "translate3d(-1032px, 0px, 0px)", "transition": "all", "width": "4128px" }}>
-                                                        {/* {product[0]?.images.map((product, index) => (
-                                                            <div className="owl-item " key={index} style={{ "width": "506px", "marginRight": "10px" }}>
-                                                                <div className="item">
-                                                                    <img src={product} className="img-fluid" alt="" />
-                                                                </div>
-                                                            </div>
-                                                        ))} */}
                                                         <div className="owl-item " style={{ "width": "506px", "marginRight": "10px" }}>
                                                             <div className="item">
                                                                 <img src={product[0]?.images[0]} className="img-fluid" alt="" />
@@ -208,7 +202,8 @@ const Page = () => {
                                                     <img src={product[0]?.images[3]} className="" alt="" />
                                                 </button>
                                             </div>
-                                        </div>
+                                        </div> */}
+                                        <ProductImageCarousel images={product[0]?.images} />
 
                                     </div>
                                     <div className="col-12 col-lg-7">
@@ -405,7 +400,7 @@ const Page = () => {
                                                             <hr />
                                                         </div>
                                                     ))}
-                                               
+
                                                 </div>
                                             </div>
                                         </div>
@@ -427,15 +422,15 @@ const Page = () => {
                             </div>
                         </div>
                         <hr />
-                <div className="product-grid">
+                        <div className="product-grid">
 
-                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-                            {similarProducts?.map((product,index)=>(
-                            <div className="col" key={product._id.toString()}>
-                                <ProductCard product={product}/>
-                                </div>
-                            ))}
-                        </div>
+                            <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                                {similarProducts?.map((product, index) => (
+                                    <div className="col" key={product._id.toString()}>
+                                        <ProductCard product={product} />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </section>
