@@ -39,6 +39,7 @@ export  async function POST(req:Request){
     
     
     } catch (error) {
+        console.log(error)
         return Response.json(
             new ApiResponse(false, 500, {}, "Error while deleting product"),
             { status: 500 }

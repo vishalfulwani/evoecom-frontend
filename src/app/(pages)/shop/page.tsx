@@ -23,6 +23,8 @@ const [maxPrice, setMaxPrice] = useState<number>(900);
 const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
 const [isFilterApplied, setIsFilterApplied] = useState<boolean>(false);
 
+console.log(isFilterApplied)
+
 useEffect(() => {
     const fetchProducts = async () => {
         try {
@@ -140,9 +142,9 @@ const displayProducts = paginateProducts();
                             <div className="ms-auto">
                                 <nav aria-label="breadcrumb">
                                     <ol className="breadcrumb mb-0 p-0">
-                                        <li className="breadcrumb-item"><a href="/"><i className="bx bx-home-alt"></i> Home</a>
+                                        <li className="breadcrumb-item"><Link href="/"><i className="bx bx-home-alt"></i> Home</Link>
                                         </li>
-                                        <li className="breadcrumb-item"><a href="/shop">Shop</a>
+                                        <li className="breadcrumb-item"><Link href="/shop">Shop</Link>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">Shop Left Sidebar</li>
                                     </ol>

@@ -1,18 +1,17 @@
 'use client'
 import { IBanner } from "@/models/banner.models";
-import mongoose from "mongoose";
 import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../../../../constants";
 import axios from "axios";
 import { ApiResponse } from "@/helpers/ApiResponse";
-import Image from "next/image";
 
 
 export default function HomePageBanner() {
     
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
+    // const [isDeleting, setIsDeleting] = useState(false);
     const [banners, setBanners] = useState<IBanner[]>([]);
+    console.log(isSubmitting)
   
     // API data fetch
     useEffect(() => {
@@ -60,7 +59,7 @@ export default function HomePageBanner() {
                     </div>
                  
                     {
-                        banners.map((banner,index)=>(
+                        banners.map((banner)=>(
                             <div className="carousel-item" key={banner._id.toString()}>
                             <div className="row d-flex align-items-center">
                                 <div className="col d-none d-lg-flex justify-content-center">

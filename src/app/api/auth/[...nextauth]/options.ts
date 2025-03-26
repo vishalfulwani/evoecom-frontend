@@ -48,6 +48,7 @@ export const authOptions: NextAuthOptions = {
             };
           } 
         } catch (error) {
+          console.log(error)
           throw new Error("Email or Password is incorrect.........");
         }
       },

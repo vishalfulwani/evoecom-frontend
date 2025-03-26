@@ -37,7 +37,7 @@ const Page = () => {
                     <div className="card bg-transparent rounded-0 shadow-none">
                       <div className="card-body">
                         <div className="steps steps-light">
-                          <a className="step-item active" href="shop-cart.html">
+                          <a className="step-item active" href="/shop-cart">
                             <div className="step-progress">
                               <span className="step-count">1</span>
                             </div>
@@ -45,7 +45,7 @@ const Page = () => {
                               <i className="bx bx-cart"></i>Cart
                             </div>
                           </a>
-                          <a className="step-item active" href="checkout-details.html">
+                          <a className="step-item active" href="/checkout-details">
                             <div className="step-progress">
                               <span className="step-count">2</span>
                             </div>
@@ -53,7 +53,7 @@ const Page = () => {
                               <i className="bx bx-user-circle"></i>Details
                             </div>
                           </a>
-                          <a className="step-item active current" href="checkout-shipping.html">
+                          <a className="step-item active current" href="/checkout-shipping">
                             <div className="step-progress">
                               <span className="step-count">3</span>
                             </div>
@@ -61,7 +61,7 @@ const Page = () => {
                               <i className="bx bx-cube"></i>Shipping
                             </div>
                           </a>
-                          <a className="step-item" href="checkout-payment.html">
+                          <a className="step-item" href="/checkout-payment">
                             <div className="step-progress">
                               <span className="step-count">4</span>
                             </div>
@@ -69,7 +69,7 @@ const Page = () => {
                               <i className="bx bx-credit-card"></i>Payment
                             </div>
                           </a>
-                          <a className="step-item" href="checkout-review.html">
+                          <a className="step-item" href="/checkout-review">
                             <div className="step-progress">
                               <span className="step-count">5</span>
                             </div>

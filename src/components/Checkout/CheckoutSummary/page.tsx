@@ -1,20 +1,20 @@
 'use client'
 
 import { ApiResponse } from "@/helpers/ApiResponse";
-import { IUser } from "@/models/user.models";
-import { clearCart, removeFromCart, updateQuantity } from "@/redux/cartSlice";
+// import { IUser } from "@/models/user.models";
+// import { clearCart, removeFromCart, updateQuantity } from "@/redux/cartSlice";
 import { RootState } from "@/redux/store";
 import axios, { AxiosError } from "axios";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { API_BASE_URL } from "../../../../constants";
 
 const CheckoutSummary = () => {
 
     const cart = useSelector((state: RootState) => state.cart.cart);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const [discount, setDiscount] = useState<number>(() => {
         const cartDetails = localStorage.getItem('cartDetails');
@@ -40,7 +40,7 @@ const CheckoutSummary = () => {
     });
 
     const [userId, setUserId] = useState<string>('');
-    const [updateDetail, setUpdateDetail] = useState(0);
+    // const [updateDetail, setUpdateDetail] = useState(0);
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -49,7 +49,7 @@ const CheckoutSummary = () => {
  
     // session
     // const [userSession, setUserSession] = useState(false)
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
     console.log(session?.platform)
     useEffect(() => {
         console.log(session)
@@ -90,28 +90,29 @@ const CheckoutSummary = () => {
         return total.toFixed(2);
     };
 
-    const [address, setAddress] = useState<{ street?: string; city?: string; state?: string; postalCode?: string }>({});
+    // const [address, setAddress] = useState<{ street?: string; city?: string; state?: string; postalCode?: string }>({});
     // get user
-    const [users, setUsers] = useState<IUser[]>([])
+    // const [users, setUsers] = useState<IUser[]>([])
 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
                 const allUsers = await axios.get<ApiResponse>(`${API_BASE_URL}/get-users`)
                 const userData = allUsers.data.data as []
-                setUsers(userData)
+                // setUsers(userData)
 
                 const you = userData.filter((data: any) => {
                     return data?._id.toString() === userId
                 })
+                console.log(you)
 
             } catch (error) {
                 console.error("Error fetching users:", error)
             }
         }
         fetchUsers()
-        console.log(address, "00000")
-    }, [userId, updateDetail])
+        // console.log(address, "00000")
+    }, [userId])
 
     useEffect(() => {
         const id = session?.user?._id as string
@@ -132,7 +133,8 @@ const CheckoutSummary = () => {
     }, []);
 
     const [subtotal, setSubtotal] = useState<number>(0);
-    const [shipping, setShipping] = useState<number>(50); // Example flat rate for shipping
+    // const [shipping, setShipping] = useState<number>(50); // Example flat rate for shipping
+    const shipping = 50; // Example flat rate for shipping
     const [taxes, setTaxes] = useState<number>(0);
     const [orderTotal, setOrderTotal] = useState<number>(0);
 

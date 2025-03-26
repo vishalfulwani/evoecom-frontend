@@ -1,8 +1,9 @@
 'use client'
 
 import CheckoutBreadCrumb from "@/components/Checkout/CheckoutBreadcrumb/page";
-import CheckoutSummary from "@/components/Checkout/CheckoutSummary/page";
-import { useState } from "react";
+import Link from "next/link";
+// import CheckoutSummary from "@/components/Checkout/CheckoutSummary/page";
+// import { useState } from "react";
 
 const Page = ()=>{
 
@@ -20,7 +21,11 @@ const Page = ()=>{
 								<p className="fs-sm mb-2">Make sure you make note of your order number, which is <span className="fw-medium">34VB5540K83.</span>
 								</p>
 								<p className="fs-sm">You will be receiving an email shortly with confirmation of your order. <u>You can now:</u>
-								</p><a className="btn btn-light rounded-0 mt-3 me-3" href="/">Go back shopping</a><a className="btn btn-white rounded-0 mt-3" href="/order-tracking"><i className="bx bx-map"></i>Track order</a>
+								</p>
+								<Link className="btn btn-light rounded-0 mt-3 me-3" href="/">Go back shopping</Link>
+								<a className="btn btn-white rounded-0 mt-3" href="/order-tracking">
+									<i className="bx bx-map"></i>Track order
+								</a>
 							</div>
 						</div>
 					</div>

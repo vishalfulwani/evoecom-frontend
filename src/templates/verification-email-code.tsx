@@ -1,9 +1,6 @@
 import BaseLayout from './base-layout';
-import { Img } from '@react-email/img';
 import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
-import { z } from 'zod';
-import { APP_URL } from '../../constants';
 
 
 

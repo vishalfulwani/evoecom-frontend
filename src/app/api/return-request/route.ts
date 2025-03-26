@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest } from 'next';
 import mongoose from 'mongoose';
 import OrderModel from '@/models/order.models';
 import { ApiResponse } from '@/helpers/ApiResponse';

@@ -2,16 +2,15 @@ import BaseLayout from './base-layout';
 import { Img } from '@react-email/img';
 import { Column } from '@react-email/column';
 import { Row } from '@react-email/row';
-import { z } from 'zod';
 import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 
 // Define schema for registration details (adapt based on your schema)
-const registrationSchema = z.object({
-  name: z.string(),
-  email: z.string(),
-  registrationDate: z.string(), // Adjust this field as needed
-});
+// const registrationSchema = z.object({
+//   name: z.string(),
+//   email: z.string(),
+//   registrationDate: z.string(), // Adjust this field as needed
+// });
 
 const RegistrationEmailToUser = ({name,email,registrationDate}:{name:string;email:string;registrationDate:string}) => {
   return (
@@ -33,7 +32,7 @@ const RegistrationEmailToUser = ({name,email,registrationDate}:{name:string;emai
           Dear <span className="!font-medium">{name},</span>
         </Text>
         <Text className="m-0 text-[13px] mt-[20px]">
-          Thank you for registering with Evontro! We're excited to have you join our platform.
+          Thank you for registering with Evontro! We&apos;re excited to have you join our platform.
         </Text>
         <Text className="m-0 text-[13px] mt-[20px]">
           Below are the details of your registration:

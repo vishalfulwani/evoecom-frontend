@@ -6,15 +6,14 @@ import { IProduct } from "@/models/product.models"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import ProductCard from "@/components/ProductCard/page"
-import Link from "next/link"
 import { API_BASE_URL } from "../../../../../constants"
-import { useParams, useSearchParams } from "next/navigation"
+import { useParams} from "next/navigation"
+import Link from "next/link"
 
 
 const Page = () => {
     const [products, setProducts] = useState<IProduct[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
-    const [categoryCount, setCategoryCount] = useState<{ category: string; items: number }[]>([]);
     const [sortCriteria, setSortCriteria] = useState<string>('default');
     const [itemsPerPage, setItemsPerPage] = useState<number>(9);
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -23,6 +22,7 @@ const Page = () => {
     const {category} = useParams();
     const [categoryName,setCategoryName] = useState(category)
     console.log(category,"cattt")
+    console.log(categoryName,"cattt")
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -109,9 +109,9 @@ const Page = () => {
                             <div className="ms-auto">
                                 <nav aria-label="breadcrumb">
                                     <ol className="breadcrumb mb-0 p-0">
-                                        <li className="breadcrumb-item"><a href="/"><i className="bx bx-home-alt"></i> Home</a>
+                                        <li className="breadcrumb-item"><Link href="/"><i className="bx bx-home-alt"></i> Home</Link>
                                         </li>
-                                        <li className="breadcrumb-item"><a href="/shop">Shop</a>
+                                        <li className="breadcrumb-item"><Link href="/shop">Shop</Link>
                                         </li>
                                         <li className="breadcrumb-item active" aria-current="page">{category}</li>
                                     </ol>

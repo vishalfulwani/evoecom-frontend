@@ -7,7 +7,6 @@ import { addToCart, ICartItem } from "@/redux/cartSlice";
 import { useDispatch } from "react-redux"
 import { toast } from "react-toastify";
 import WishlistBtn from "../WishlistBtn/page";
-import Link from "next/link";
 import { IReview } from "@/models/product.models";
 
 export interface IProduct {

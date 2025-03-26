@@ -1,18 +1,16 @@
 import { ApiResponse } from "@/helpers/ApiResponse";
 import { IBrand } from "@/models/brands.models";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { API_BASE_URL } from "../../../../constants";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import mongoose from "mongoose";
 
 const Brands = () => {
 
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
+    // const [isDeleting, setIsDeleting] = useState(false);
     const [brands, setBrands] = useState<IBrand[]>([]);
-    
+    console.log(isSubmitting)
     // API data fetch
     useEffect(() => {
       const fetchProducts = async () => {

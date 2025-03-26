@@ -1,23 +1,18 @@
 'use client'
 
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 import "./globals.css"; // Your global styles
 import AuthProvider from "@/context/AuthProvider";
-import Footer from "@/components/EcommerceFooter/page";
 import "./globals.css"; // Import global CSS again to ensure it's included
 import Script from "next/script"; // Import the next/script component
-import Navbar from "@/components/EcommerceNavbar/page";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import { store } from "@/redux/store";
-import { setCart } from "@/redux/cartSlice";
-import { useEffect } from "react";
 import CartInitializer from "@/components/CartInitializer/page";
 import WishlistInitializer from "@/components/WishlistInitializer/page";
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
 
 export default function RootLayout({

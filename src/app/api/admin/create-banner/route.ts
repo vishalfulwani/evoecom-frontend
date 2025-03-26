@@ -54,7 +54,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Background image must be a valid file" }, { status: 400 });
     }
   } catch (error) {
-    console.error(error); // Log the error for debugging
+    console.log(error); // Log the error for debugging
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

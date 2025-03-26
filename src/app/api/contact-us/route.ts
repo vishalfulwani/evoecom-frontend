@@ -1,73 +1,8 @@
-// // pages/api/send-email.ts
-// import { ApiResponse } from '@/helpers/ApiResponse';
-// import { sendEmail } from '@/lib/emailService';
-// import ContactEmailToAdmin from '@/templates/contact-email-to-admin';
-// import { NextApiRequest, NextApiResponse } from 'next';
-// import { NextRequest } from 'next/server';
-// import nodemailer from 'nodemailer';
-
-// const sendContactEmailToAdmin = async (templateData : any) => {
-//     const emailResponse = await sendEmail({
-//         to: "john.doe@example.com",
-//         subject: "Your Verification Code",
-//         template: ContactEmailToAdmin as any,
-//         templateData: templateData,
-//       });
-//       return emailResponse; 
-// };
-
-
-// export async function POST(req: NextRequest, res: NextApiResponse) {
-    
-//   if (req.method === 'POST') {
-//     const { name, email,subject, message } = await req.json()
-
-// console.log(name,"==========",email,"--------**********")
-
-//     // async function createTestAccount() {
-//         let testAccount = await nodemailer.createTestAccount();
-//         console.log('Ethereal Credentials:', testAccount);
-//     // }
-    
-//     // createTestAccount();
-
-   
-//     const templateData = {
-//         name,
-//         email,
-//         subject,
-//         message,
-//       };
-//     const emailResponse = await sendContactEmailToAdmin(templateData);
-    
-//     return Response.json(
-//         new ApiResponse(true,200,{},"Message sent successfully"),
-//         {status:200}
-//       )
-//     } catch (error) {
-//       console.error(error);
-//     Response.json(
-//         new ApiResponse(false,500,{},"error "),
-//         {status:500}
-//       )
-//     }
-//   } else {
-//     Response.json(
-//         new ApiResponse(false,500,{},"error while fetching sponsors data"),
-//         {status:500}
-//       )
-//   }
-// };
-
-
-
 
 // pages/api/send-email.ts
 import { ApiResponse } from '@/helpers/ApiResponse';
 import { sendEmail } from '@/lib/emailService';
 import ContactEmailToAdmin from '@/templates/contact-email-to-admin';
-import { NextApiRequest, NextApiResponse } from 'next';
-import nodemailer from 'nodemailer';
 import { ADMIN_EMAIL } from '../../../../constants';
 import { NextRequest } from 'next/server';
 
@@ -81,7 +16,7 @@ const sendContactEmailToAdmin = async (templateData: any) => {
   return emailResponse;
 };
 
-export async function POST(req: NextRequest, res: Response) {
+export async function POST(req: NextRequest) {
   if (req.method === 'POST') {
     try {
       const { name, email, phoneNumber, message } = await req.json();
@@ -100,6 +35,7 @@ export async function POST(req: NextRequest, res: Response) {
       };
 
       const emailResponse = await sendContactEmailToAdmin(templateData);
+      console.log(emailResponse)
 
       return Response.json(
         new ApiResponse(true, 200, {}, "Message sent successfully"),

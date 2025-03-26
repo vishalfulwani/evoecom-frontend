@@ -1,12 +1,10 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest } from 'next';
 import mongoose from 'mongoose';
 import OrderModel from '@/models/order.models';
 import { ApiResponse } from '@/helpers/ApiResponse';
 import { NextResponse } from 'next/server';
 import { sendEmail } from '@/lib/emailService';
 import ReturnRequestToUser from '@/templates/return-request-email-to-user';
-import UserModel from '@/models/user.models';
-import ProductModel from '@/models/product.models';
 
 
 const sendReturnRequestConfirmationEmailToUser = async (templateData : any) => {
@@ -84,7 +82,7 @@ export default async function PUT(req: NextApiRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return NextResponse.json(
       new ApiResponse(false, 500, {}, 'Failed to update return status'),
       { status: 500 }

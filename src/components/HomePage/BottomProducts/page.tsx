@@ -1,5 +1,5 @@
 'use client'
-import ProductCard from "@/components/ProductCard/page"
+// import ProductCard from "@/components/ProductCard/page"
 import { ApiResponse } from "@/helpers/ApiResponse"
 import getRandomElements from "@/helpers/getRandomElements"
 // import getRandomElements from "@/helpers/getRandomElements"

@@ -5,19 +5,19 @@ import { ApiResponse } from "@/helpers/ApiResponse";
 import { IProduct } from "@/models/product.models";
 import { RootState } from "@/redux/store";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { API_BASE_URL } from "../../../../constants";
 
 
 const Page = ()=>{
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const wishlist = useSelector((state: RootState) => state.wishlist.items); // Get wishlist from Redux
     const [wishlistProducts, setWishlistProducts] = useState<IProduct[]>([]);
     const [isLoading, setIsLoading] = useState(false);
   
     console.log("Wishlist from Redux:", wishlist);
+    console.log(isLoading);
   
     // Fetch the wishlist products based on IDs
     useEffect(() => {

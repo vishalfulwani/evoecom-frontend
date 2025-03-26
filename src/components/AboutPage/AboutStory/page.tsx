@@ -5,9 +5,38 @@ const AboutStory = () => {
         <section className="py-0 py-lg-4">
             <div className="container">
                 <h4>Our Story</h4>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>
-                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>
+                <p className="mt-3">
+        At <strong>Glamdiva</strong>, fashion isn’t just about clothing; it’s about expressing who you are. 
+        Founded in 2020, our journey began with a simple idea—to create stylish, high-quality, and 
+        affordable fashion for everyone. From trendy streetwear to timeless classics, we bring you the 
+        latest styles that make a statement.
+      </p>
+      <p className="">
+        What sets us apart? We believe in sustainable fashion. Our fabrics are ethically sourced, and 
+        every piece is crafted with care to ensure comfort, durability, and style. We work with passionate 
+        designers and artisans to bring fresh designs that inspire confidence. Our collections are carefully 
+        curated to offer a mix of contemporary trends and timeless fashion essentials, ensuring that 
+        everyone can find something they love.
+      </p>
+      <p className="">
+        With a commitment to quality, we use premium fabrics that feel great on your skin. From breathable 
+        cotton and luxurious linen to eco-friendly materials, every fabric is chosen with comfort and sustainability 
+        in mind. We also partner with responsible manufacturers who prioritize fair wages and ethical working conditions.
+      </p>
+      <p className="">
+        We understand that fashion is personal, which is why our collections cater to diverse styles. 
+        Whether you’re dressing up for a special occasion, looking for comfortable casual wear, or need 
+        statement pieces that turn heads, <strong>TrendWear</strong> has something for everyone.  
+      </p>
+      <p className="">
+        Our brand is more than just clothing—it’s a community. Through our fashion blog, styling guides, 
+        and social media, we connect with our customers and help them stay ahead of the trends. We love 
+        seeing how you style our pieces, and we celebrate individuality and self-expression.
+      </p>
+      <p className="">
+        Join us on this exciting fashion journey! Stay stylish, stay confident, and make a statement 
+        with <strong>Glamdivs</strong>. Your style, your story.
+      </p>
             </div>
         </section>
 

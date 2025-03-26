@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Promotion() {
     return(
         <section className="py-4">
@@ -11,8 +13,8 @@ export default function Promotion() {
                             </div>
                             <div className="col">
                                 <div className="card-body">
-                                    <h5 className="card-title text-uppercase">Mens' Wear</h5>
-                                    <p className="card-text text-uppercase">Starting at $9</p> <a href="/shop" className="btn btn-light btn-ecomm">SHOP NOW</a>
+                                    <h5 className="card-title text-uppercase">Mens&apos; Wear</h5>
+                                    <p className="card-text text-uppercase">Starting at $9</p> <Link href="/shop" className="btn btn-light btn-ecomm">SHOP NOW</Link>
                                 </div>
                             </div>
                         </div>
@@ -26,8 +28,8 @@ export default function Promotion() {
                             </div>
                             <div className="col">
                                 <div className="card-body">
-                                    <h5 className="card-title text-uppercase">Womens' Wear</h5>
-                                    <p className="card-text text-uppercase">Starting at $9</p> <a href="/shop" className="btn btn-light btn-ecomm">SHOP NOW</a>
+                                    <h5 className="card-title text-uppercase">Womens&apos; Wear</h5>
+                                    <p className="card-text text-uppercase">Starting at $9</p> <Link href="/shop" className="btn btn-light btn-ecomm">SHOP NOW</Link>
                                 </div>
                             </div>
                         </div>
@@ -41,8 +43,8 @@ export default function Promotion() {
                             </div>
                             <div className="col">
                                 <div className="card-body">
-                                    <h5 className="card-title text-uppercase">Kids' Wear</h5>
-                                    <p className="card-text text-uppercase">Starting at $9</p> <a href="/shop" className="btn btn-light btn-ecomm">SHOP NOW</a>
+                                    <h5 className="card-title text-uppercase">Kids&apos; Wear</h5>
+                                    <p className="card-text text-uppercase">Starting at $9</p> <Link href="/shop" className="btn btn-light btn-ecomm">SHOP NOW</Link>
                                 </div>
                             </div>
                         </div>

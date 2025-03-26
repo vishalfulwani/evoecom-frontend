@@ -1,13 +1,11 @@
 'use client'
 import { ApiResponse } from '@/helpers/ApiResponse';
 import { IProduct } from '@/models/product.models';
-import { IUser } from '@/models/user.models';
 import { removeFromCart, selectCartItemCount } from '@/redux/cartSlice';
 import { RootState } from '@/redux/store';
 import { selectWishlistItemCount } from '@/redux/wishlistSlice';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { useSession } from 'next-auth/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -15,11 +13,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { API_BASE_URL } from '../../../constants';
 
 const Navbar = () => {
-
-    const [selectedValue, setSelectedValue] = useState("All Categories");
-    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedValue(event.target.value);
-    };
 
     const cart = useSelector((state: RootState) => state.cart.cart);
     const dispatch = useDispatch();
@@ -32,14 +25,13 @@ const Navbar = () => {
     const [shipping, setShipping] = useState<number>(50); // Example flat rate for shipping
     const [taxes, setTaxes] = useState<number>(0);
     const [orderTotal, setOrderTotal] = useState<number>(0);
-
-    const [check, setCheck] = useState(1)
-
-
+console.log(subtotal,taxes)
+    const check = 1
 
 
-    const [userId, setUserId] = useState<string>('');
-    const [updateDetail, setUpdateDetail] = useState(0);
+
+
+    // const [userId, setUserId] = useState<string>('');
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -48,43 +40,43 @@ const Navbar = () => {
 
     // session
     // const [userSession, setUserSession] = useState(false)
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
     console.log(session?.platform)
     useEffect(() => {
         console.log(session)
     }, [session]);
 
     // apply coupon
-    const applyCoupon = async () => {
-        if (check == 1) {
-            setCheck(2)
-        }
-        setCheck(1)
-        try {
-            console.log("userrrrr", userId)
-            const response = await axios.post(`${API_BASE_URL}/admin/apply-coupon`, {
-                code,
-                userId
-            })
-            const disc = response.data.data?.discount
-            setDiscount(disc)
-            console.log("-----", disc)
-            calculateTotal()
-            const msg = response.data.message
-            setCodeMsg(msg)
-            setCode(code)
-            calculateCartDetails()
-        } catch (error) {
-            console.error("Error applying coupon", error)
-            const axiosError = error as AxiosError<ApiResponse>
-            let errorMessage = axiosError.response?.data.message
-            console.log(`${code} ${errorMessage}`)
-            setDiscount(0)
-            setCode("")
-            setCodeMsg(errorMessage || "Invalid or expired coupon code")
-            // setCodeMsg(`${code} ${errorMessage}` || "Invalid or expired coupon code")
-        }
-    }
+    // const applyCoupon = async () => {
+    //     if (check == 1) {
+    //         setCheck(2)
+    //     }
+    //     setCheck(1)
+    //     try {
+    //         console.log("userrrrr", userId)
+    //         const response = await axios.post(`${API_BASE_URL}/admin/apply-coupon`, {
+    //             code,
+    //             userId
+    //         })
+    //         const disc = response.data.data?.discount
+    //         setDiscount(disc)
+    //         console.log("-----", disc)
+    //         calculateTotal()
+    //         const msg = response.data.message
+    //         setCodeMsg(msg)
+    //         setCode(code)
+    //         calculateCartDetails()
+    //     } catch (error) {
+    //         console.error("Error applying coupon", error)
+    //         const axiosError = error as AxiosError<ApiResponse>
+    //         let errorMessage = axiosError.response?.data.message
+    //         console.log(`${code} ${errorMessage}`)
+    //         setDiscount(0)
+    //         setCode("")
+    //         setCodeMsg(errorMessage || "Invalid or expired coupon code")
+    //         // setCodeMsg(`${code} ${errorMessage}` || "Invalid or expired coupon code")
+    //     }
+    // }
 
     useEffect(() => {
         const cartDetails = localStorage.getItem("cartDetails");
@@ -102,39 +94,19 @@ const Navbar = () => {
         }
     }, [check]);
 
-    // calculate total amount to pay
-    const calculateTotal = () => {
-        const subtotal = cart.reduce((acc, item) => acc + parseFloat(item.product.sellingPrice) * item.quantity, 0);
-        const total = subtotal - (subtotal * discount / 100);
-        return total.toFixed(2);
-    };
+    // // calculate total amount to pay
+    // const calculateTotal = () => {
+    //     const subtotal = cart.reduce((acc, item) => acc + parseFloat(item.product.sellingPrice) * item.quantity, 0);
+    //     const total = subtotal - (subtotal * discount / 100);
+    //     return total.toFixed(2);
+    // };
 
-    const [address, setAddress] = useState<{ street?: string; city?: string; state?: string; postalCode?: string }>({});
-    // get user
-    const [users, setUsers] = useState<IUser[]>([])
-
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const allUsers = await axios.get<ApiResponse>(`${API_BASE_URL}/get-users`)
-                const userData = allUsers.data.data as []
-                setUsers(userData)
-
-                const you = userData.filter((data: any) => {
-                    return data?._id.toString() === userId
-                })
-
-            } catch (error) {
-                console.error("Error fetching users:", error)
-            }
-        }
-        fetchUsers()
-        console.log(address, "00000")
-    }, [userId, updateDetail])
+  
 
     useEffect(() => {
         const id = session?.user?._id as string
-        setUserId(id)
+        console.log(id)
+        // setUserId(id)
     }, [])
 
 
@@ -207,8 +179,9 @@ const Navbar = () => {
 
 
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [isDeleting, setIsDeleting] = useState(false)
+    // const [isDeleting, setIsDeleting] = useState(false)
     const [products, setProducts] = useState<IProduct[]>([])
+    console.log(isSubmitting)
 
     // Api data fetch
     useEffect(() => {
@@ -305,7 +278,7 @@ const Navbar = () => {
                 setCategoryCount(categoryArray);
 
             } catch (error) {
-                console.error("Error fetching products:", error);
+                console.log("Error fetching products:", error);
             }
         };
         fetchProducts();
@@ -322,6 +295,13 @@ const Navbar = () => {
             router.push("/shop");
         }
     };
+
+
+    const categoryClick = (category:string) => {
+        if (category !== "all") {
+            router.push(`/shop/${category}`);
+        } 
+    }
 
     
 
@@ -413,9 +393,9 @@ const Navbar = () => {
                                         <div className="mobile-toggle-menu d-lg-none px-lg-2" data-trigger="#navbar_main"><i className='bx bx-menu'></i>
                                         </div>
                                         <div className="logo d-none d-lg-flex">
-                                            <a href="/">
+                                            <Link href="/">
                                                 <img src="/assets/images/logo-icon.png" className="logo-icon" alt="" />
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -595,44 +575,28 @@ const Navbar = () => {
                                                 <div className="col-md-4">
                                                     <h6 className="large-menu-title">Fashion</h6>
                                                     <ul className="">
-                                                        <li><a href="#">Casual T-Shirts</a>
+                                                        {
+                                                            categoryCount.map(({category,items})=>(
+
+                                                        <li key={category} onClick={()=>categoryClick(category)}><a href="#">{category}</a>
                                                         </li>
-                                                        <li><a href="#">Formal Shirts</a>
-                                                        </li>
-                                                        <li><a href="#">Jackets</a>
-                                                        </li>
-                                                        <li><a href="#">Jeans</a>
-                                                        </li>
-                                                        <li><a href="#">Dresses</a>
-                                                        </li>
-                                                        <li><a href="#">Sneakers</a>
-                                                        </li>
-                                                        <li><a href="#">Belts</a>
-                                                        </li>
-                                                        <li><a href="#">Sports Shoes</a>
-                                                        </li>
+                                                            ))
+                                                        }
+                                                      
                                                     </ul>
                                                 </div>
                                                 <div className="col-md-4">
-                                                    <h6 className="large-menu-title">Electronics</h6>
+                                                    <h6 className="large-menu-title">Fashion</h6>
                                                     <ul className="">
-                                                        <li><a href="#">Mobiles</a>
+
+                                                    {
+                                                            categoryCount.map(({category,items})=>(
+
+                                                        <li key={category} onClick={()=>categoryClick(category)}><a href="#">{category}</a>
                                                         </li>
-                                                        <li><a href="#">Laptops</a>
-                                                        </li>
-                                                        <li><a href="#">Macbook</a>
-                                                        </li>
-                                                        <li><a href="#">Televisions</a>
-                                                        </li>
-                                                        <li><a href="#">Lighting</a>
-                                                        </li>
-                                                        <li><a href="#">Smart Watch</a>
-                                                        </li>
-                                                        <li><a href="#">Galaxy Phones</a>
-                                                        </li>
-                                                        <li><a href="#">PC Monitors</a>
-                                                        </li>
-                                                    </ul>
+                                                            ))
+                                                        }
+                                                        </ul>
                                                 </div>
                                                 <div className="col-md-4">
                                                     <div className="pramotion-banner1">
@@ -645,7 +609,7 @@ const Navbar = () => {
 
                                     <li className="nav-item dropdown"> <a className="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">Shop  <i className='bx bx-chevron-down'></i></a>
                                         <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item" href="/shop">Shop</a>
+                                            <li><Link className="dropdown-item" href="/shop">Shop</Link>
                                             </li>
                                             <li><a className="dropdown-item dropdown-toggle dropdown-toggle-nocaret" href="#">Shop Pages <i className='bx bx-chevron-right float-end'></i></a>
                                                 <ul className="submenu dropdown-menu">

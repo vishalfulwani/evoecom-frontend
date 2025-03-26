@@ -3,8 +3,10 @@ import UserModel from "@/models/user.models";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const { token,email, newPassword, confirmPassword } = await req.json();
+
+  console.log(email)
 
   try {
     // Step 1: Verify the reset token

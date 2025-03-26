@@ -1,20 +1,17 @@
 import dbConnect from '@/dbconfig/dbConnect';
 import { ApiResponse } from '@/helpers/ApiResponse';
-import UserModel, { IUser } from '@/models/user.models';
-import mongoose from 'mongoose';
-import type { NextApiRequest, NextApiResponse } from 'next';
+import UserModel from '@/models/user.models';
 // import { ecommerceAuthOptions } from '../auth/ecommerce/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
-import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 import { authOptions } from '../auth/[...nextauth]/options';
 
 
-interface ChangePasswordRequest extends NextApiRequest {
-    user?: IUser & { _id: mongoose.Types.ObjectId };
-}
+// interface ChangePasswordRequest extends NextApiRequest {
+//     user?: IUser & { _id: mongoose.Types.ObjectId };
+// }
 
-export async function POST(req: Request, res: NextApiResponse) {
+export async function POST(req: Request) {
     await dbConnect();
 
     const session = await getServerSession(authOptions);

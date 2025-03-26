@@ -14,7 +14,7 @@ interface RequestBody {
     email: string;
     password: string;
     country: string;
-    agree:string;
+    agree?:string;
 }
 
 const sendVerificationEmail = async (templateData : any,to:string) => {
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     try {
         const body = await req.json();
         const { firstName,lastName ,  email, password ,country,agree}: RequestBody = await body as RequestBody;
-
+console.log(agree)
         if ([firstName,lastName, email, password].some(field => field.trim() === '')) {
             return Response.json(
                 new ApiResponse(false, 400, {}, "All fields are required"),
@@ -108,7 +108,7 @@ export async function POST(req: Request) {
         );
 
     } catch (error) {
-        console.error("Error while registering user:", error);
+        console.log("Error while registering user:", error);
         return Response.json(
             new ApiResponse(false, 500, {}, "Error while registering user"),
             { status: 500 }

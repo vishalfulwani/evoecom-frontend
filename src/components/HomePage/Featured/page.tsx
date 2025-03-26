@@ -8,6 +8,7 @@ import { IProduct } from "@/models/product.models"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { API_BASE_URL } from "../../../../constants"
+import Link from "next/link"
 
 export default function Featured() {
     const [products, setProducts] = useState<IProduct[]>([])
@@ -41,12 +42,12 @@ export default function Featured() {
             <div className="container">
                 <div className="d-flex align-items-center">
                     <h5 className="text-uppercase mb-0">FEATURED PRODUCTS</h5>
-                    <a href="/shop" className="btn btn-light ms-auto rounded-0">More Products<i className='bx bx-chevron-right'></i></a>
+                    <Link href="/shop" className="btn btn-light ms-auto rounded-0">More Products<i className='bx bx-chevron-right'></i></Link>
                 </div>
                 <hr />
                 <div className="product-grid">
                     <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-                        {featuredProducts.map((product, index) => (
+                        {featuredProducts.map((product) => (
                             <div className="col" key={product._id.toString()}>
                                 <ProductCard product={product} />
                             </div>

@@ -1,9 +1,8 @@
-import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken"; // Ensure this is correct
 import UserModel from "@/models/user.models";
 import ResetPasswordEmail from "@/templates/reset-password-to-user";
 import { ApiResponse } from "@/helpers/ApiResponse";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { sendEmail } from "@/lib/emailService";
 
 const sendResetPasswordEmail = async (templateData: any,to:string) => {
@@ -16,7 +15,7 @@ const sendResetPasswordEmail = async (templateData: any,to:string) => {
   return emailResponse;
 };
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const { email } = await req.json();
 
   console.log("--",email)
@@ -54,7 +53,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error in forgot password:", error);
+    console.log("Error in forgot password:", error);
     return Response.json(
         new ApiResponse(false, 500, {}, "Internal Server Error"),
         { status: 500 }

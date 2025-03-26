@@ -1,9 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '@/dbconfig/dbConnect';
 import { ApiResponse } from '@/helpers/ApiResponse';
 import CouponModel from '@/models/coupon.models';
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET() {
 
     await dbConnect();
 
@@ -26,6 +25,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
             { status: 200 }
         );
     } catch (error) {
+        console.log(error)
         return Response.json(
             new ApiResponse(false, 500, {}, "Error while fetching and updating coupon data"),
             { status: 500 }

@@ -43,6 +43,7 @@ export async function POST(req: Request) {
         {status:200}
     )
   } catch (error) {
+    console.log(error)
     return Response.json(
         new ApiResponse(false,500,{}, 'Failed to create coupen'),
         {status:500}

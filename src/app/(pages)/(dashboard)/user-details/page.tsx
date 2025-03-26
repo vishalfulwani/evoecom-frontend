@@ -3,12 +3,12 @@
 
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { API_BASE_URL } from "../../../../../constants";
 
 const Page = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -28,9 +28,10 @@ const Page = () => {
           oldPassword,
           newPassword,
       });
+      console.log(response)
         toast.success("Password changed successfully");
     } catch (error) {
-      console.error("Error:", error);
+      console.log("Error:", error);
       toast.error("An error occurred while changing the password");
     }
   };

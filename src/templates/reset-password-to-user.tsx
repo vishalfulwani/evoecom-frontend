@@ -2,7 +2,6 @@ import BaseLayout from './base-layout';
 import { Img } from '@react-email/img';
 import { Column } from '@react-email/column';
 import { Row } from '@react-email/row';
-import { z } from 'zod';
 import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 

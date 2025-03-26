@@ -9,38 +9,80 @@ import { useEffect, useState } from "react";
 
 const CheckoutDetailsPage = () => {
 
-	const { data: session, status } = useSession();
-	const router = useRouter();
+	// const { data: session} = useSession();
+	// const router = useRouter();
 
-	useEffect(() => {
-		console.log(session);
-	}, [session]);
+	// useEffect(() => {
+	// 	console.log(session);
+	// }, [session]);
 
-	// Set initial state values with empty strings or fallback to the session data
-	const [street, setStreet] = useState<string>(session?.address?.street || "");
-	const [city, setCity] = useState<string>(session?.address?.city || "");
-	const [state, setState] = useState<string>(session?.address?.state || "");
-	const [postalCode, setPostalCode] = useState<string>(session?.address?.postalCode || "");
-	const [phone, setPhone] = useState<string>(session?.phone || "");
+	// // Set initial state values with empty strings or fallback to the session data
+	// const [street, setStreet] = useState<string>(session?.address?.street || "");
+	// const [city, setCity] = useState<string>(session?.address?.city || "");
+	// const [state, setState] = useState<string>(session?.address?.state || "");
+	// const [postalCode, setPostalCode] = useState<string>(session?.address?.postalCode || "");
+	// const [phone, setPhone] = useState<string>(session?.phone || "");
 
-	const handleProceedToCheckout = (e: React.FormEvent) => {
-		e.preventDefault();
+	// const handleProceedToCheckout = (e: React.FormEvent) => {
+	// 	e.preventDefault();
 
-		const addressData = {
-			userName: session?.user?.userName,
-			email: session?.user?.email,
-			street,
-			city,
-			state,
-			postalCode,
-			phone,
-		};
+	// 	const addressData = {
+	// 		userName: session?.user?.userName,
+	// 		email: session?.user?.email,
+	// 		street,
+	// 		city,
+	// 		state,
+	// 		postalCode,
+	// 		phone,
+	// 	};
 
-		// Store address in local storage
-		localStorage.setItem("address", JSON.stringify(addressData));
-		// Redirect to the shipping page
-		router.push("/checkout-shipping");
-	};
+	// 	// Store address in local storage
+	// 	localStorage.setItem("address", JSON.stringify(addressData));
+	// 	// Redirect to the shipping page
+	// 	router.push("/checkout-shipping");
+	// };
+
+
+	const { data: session } = useSession();
+const router = useRouter();
+
+// State initialized as undefined to avoid switching between controlled & uncontrolled
+const [street, setStreet] = useState<string | undefined>(undefined);
+const [city, setCity] = useState<string | undefined>(undefined);
+const [state, setState] = useState<string | undefined>(undefined);
+const [postalCode, setPostalCode] = useState<string | undefined>(undefined);
+const [phone, setPhone] = useState<string | undefined>(undefined);
+
+// Update state when session data is available
+useEffect(() => {
+  if (session) {
+    setStreet(session?.address?.street || "");
+    setCity(session?.address?.city || "");
+    setState(session?.address?.state || "");
+    setPostalCode(session?.address?.postalCode || "");
+    setPhone(session?.phone || "");
+  }
+  console.log(session)
+}, [session]);
+
+const handleProceedToCheckout = (e: React.FormEvent) => {
+  e.preventDefault();
+
+  const addressData = {
+    userName: session?.user?.userName,
+    email: session?.user?.email,
+    street,
+    city,
+    state,
+    postalCode,
+    phone,
+  };
+
+  localStorage.setItem("address", JSON.stringify(addressData));
+  router.push("/checkout-shipping");
+};
+
+
 
 	return (
 		<div className="page-wrapper1">
@@ -56,27 +98,27 @@ const CheckoutDetailsPage = () => {
 										<div className="card bg-transparent rounded-0 shadow-none">
 											<div className="card-body">
 												<div className="steps steps-light">
-													<a className="step-item active" href="shop-cart.html">
+													<Link className="step-item active" href="/shop">
 														<div className="step-progress"><span className="step-count">1</span>
 														</div>
 														<div className="step-label"><i className="bx bx-cart"></i>Cart</div>
-													</a>
-													<a className="step-item active current" href="checkout-details.html">
+													</Link>
+													<a className="step-item active current" href="/checkout-details">
 														<div className="step-progress"><span className="step-count">2</span>
 														</div>
 														<div className="step-label"><i className="bx bx-user-circle"></i>Details</div>
 													</a>
-													<a className="step-item" href="checkout-shipping.html">
+													<a className="step-item" href="/checkout-shipping">
 														<div className="step-progress"><span className="step-count">3</span>
 														</div>
 														<div className="step-label"><i className="bx bx-cube"></i>Shipping</div>
 													</a>
-													<a className="step-item" href="checkout-payment.html">
+													<a className="step-item" href="/checkout-payment">
 														<div className="step-progress"><span className="step-count">4</span>
 														</div>
 														<div className="step-label"><i className="bx bx-credit-card"></i>Payment</div>
 													</a>
-													<a className="step-item" href="checkout-review.html">
+													<a className="step-item" href="/checkout-review">
 														<div className="step-progress"><span className="step-count">5</span>
 														</div>
 														<div className="step-label"><i className="bx bx-check-circle"></i>Review</div>

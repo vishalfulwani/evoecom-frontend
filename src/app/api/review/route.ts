@@ -1,11 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import mongoose from "mongoose";
 import ProductModel, { IReview } from "@/models/product.models";
 import { ApiResponse } from "@/helpers/ApiResponse";
 import dbConnect from "@/dbconfig/dbConnect";
 import { NextRequest } from "next/server";
 
-export async function POST(req: NextRequest, res: NextApiResponse) {
+export async function POST(req: NextRequest) {
   dbConnect();
 
   // const { productId, review } = req.body;

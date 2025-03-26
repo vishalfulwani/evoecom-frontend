@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 import AuthProvider from "@/context/AuthProvider";
 import Footer from "@/components/EcommerceFooter/page";
 import Navbar from "@/components/EcommerceNavbar/page";
@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Your Site Title",  // Customize the title for your app

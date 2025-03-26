@@ -31,14 +31,6 @@ const Page = () => {
     };
     const router = useRouter()
 
-    const form = useForm<z.infer<typeof signInSchema>>({
-        resolver: zodResolver(signInSchema),
-        defaultValues: {
-            email: '',
-            password: '',
-        }
-    })
-
     const onSubmit = async (data: SignInFormData) => {
         setIsSubmitting(true)
         const platform = 'ecommerce';
@@ -117,7 +109,7 @@ const Page = () => {
                                             <div className="border p-4 rounded">
                                                 <div className="text-center">
                                                     <h3 className="">Sign in</h3>
-                                                    <p>Don't have an account yet? <a href="/signup">Sign up here</a>
+                                                    <p>Don&apos;t have an account yet? <a href="/signup">Sign up here</a>
                                                     </p>
                                                 </div>
                                                 <div className="d-grid">

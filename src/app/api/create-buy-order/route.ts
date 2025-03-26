@@ -1,109 +1,11 @@
 
-// import Razorpay from 'razorpay';
-// import dbConnect from '@/dbconfig/dbConnect';
-// import { ApiResponse } from '@/helpers/ApiResponse';
-// import OrderModel from '@/models/order.models';
-
-// const razorpay = new Razorpay({
-//     key_id: process.env.RAZORPAY_KEY_ID as string,
-//     key_secret: process.env.RAZORPAY_KEY_SECRET as string,
-// });
-
-// export async function POST(req: Request) {
-//     await dbConnect(); // Ensure the DB connection
-
-//     console.log(process.env.RAZORPAY_KEY_ID,"P000000000000000")
-//     try {
-//         const { userId, cartItems, address, totalAmount, phone, couponCode } = await req.json();
-         
-//         // Log the data received from the request
-//         console.log("Received Request Data: ", { userId, cartItems, address, totalAmount, phone, couponCode });
-
-//         const options = {
-//             amount: totalAmount * 100, // Convert to cents
-//             currency: 'USD',
-//             receipt: `receipt_order_${new Date().getTime()}`,
-//         };
-
-//         console.log("Razorpay Order Options: ", options);
-
-//         // Create the Razorpay order
-//         const order = await razorpay.orders.create(options);
-
-//         // Log the order creation response
-//         console.log("Razorpay Order Created: ", order);
-
-//         if (!order || !order.id) {
-//             throw new Error("Razorpay order creation failed");
-//         }
-
-//         // Create the purchase order to save in the database
-//         const purchaseOrder = new OrderModel({
-//             userId,
-//             currency: options.currency,
-//             razorpayOrderId: order.id,
-//             items: cartItems,
-//             address,
-//             totalAmount,
-//             phone,
-//             couponCode,
-//             status: 'pending',
-//         });
-
-//         console.log("Saving Order to Database: ", purchaseOrder);
-        
-//         // Save the purchase order to the database
-//         await purchaseOrder.save();
-
-//         return new Response(
-//             JSON.stringify(new ApiResponse(true, 200, order, "Purchase order created")),
-//             { status: 200 }
-//         );
-//     } catch (error: any) {
-//         // Log the error message and stack trace for debugging
-//         console.error("Error while creating purchase order: ", error.message);
-//         console.error("Error while creating purchase order: ", error);
-//         console.error("Stack Trace: ", error.stack);
-
-//         return new Response(
-//             JSON.stringify(new ApiResponse(false, 500, {}, "Error while creating purchase order")),
-//             { status: 500 }
-//         );
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import Razorpay from 'razorpay';
 import dbConnect from '@/dbconfig/dbConnect';
 import { ApiResponse } from '@/helpers/ApiResponse';
 import OrderModel from '@/models/order.models';
 import { sendEmail } from '@/lib/emailService';
 import { ADMIN_EMAIL } from '../../../../constants';
-import RegistrationEmailToAdmin from '@/templates/registration-email-to-admin';
+// import RegistrationEmailToAdmin from '@/templates/registration-email-to-admin';
 import OrderEmailToAdmin from '@/templates/order-email-to-admin';
 import OrderEmailToUser from '@/templates/order-email-to-user';
 import UserModel from '@/models/user.models';

@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 const Page = ()=>{
 
-     const { data: session, status } = useSession();
+     const { data: session } = useSession();
         console.log(session?.platform)
         useEffect(() => {
             console.log(session)

@@ -2,8 +2,7 @@
 "use client"
 import { ApiResponse } from '@/helpers/ApiResponse';
 import axios from 'axios';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+;import { useEffect, useState } from 'react';
 import { API_BASE_URL } from '../../../constants';
 import { toast } from 'react-toastify';
 

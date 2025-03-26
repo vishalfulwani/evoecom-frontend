@@ -1,9 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '@/dbconfig/dbConnect';
 import { ApiResponse } from '@/helpers/ApiResponse';
 import OrderModel from '@/models/order.models';
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET() {
 
   await dbConnect();
 
@@ -16,6 +15,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 
       }
      catch (error) {
+      console.log(error)
       Response.json(
         new ApiResponse(false,500,{},"error while fetching orders  data"),
         {status:500}

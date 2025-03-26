@@ -1,7 +1,7 @@
 import dbConnect from "@/dbconfig/dbConnect";
 import { ApiResponse } from "@/helpers/ApiResponse";
 import { sendEmail } from "@/lib/emailService";
-import UserModel, { IUser } from "@/models/user.models";
+import UserModel from "@/models/user.models";
 import RegistrationEmailToAdmin from "@/templates/registration-email-to-admin";
 import RegistrationEmailToUser from "@/templates/registration-email-to-user";
 import { ADMIN_EMAIL } from "../../../../constants";
@@ -81,6 +81,7 @@ export async function POST(req: Request) {
       );
     }
   } catch (error) {
+    console.log(error)
     return Response.json(
       new ApiResponse(false, 500, {}, "Error while code verification"),
       { status: 500 }

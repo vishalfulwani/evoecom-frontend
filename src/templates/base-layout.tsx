@@ -8,8 +8,6 @@ import { Container } from '@react-email/container'
 import { Link } from '@react-email/link'
 import { Section } from '@react-email/section'
 import { Img } from '@react-email/img'
-import { APP_URL } from '../../constants'
-// import { APP_URL } from '@/app/_lib/constants'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -23,10 +21,6 @@ interface LayoutProps {
 export default function BaseLayout({
   children,
   title,
-  heading,
-  showLoginLink,
-  footerMessage,
-  youMightAlsoLove,
 }: LayoutProps) {
   return (
     <Html

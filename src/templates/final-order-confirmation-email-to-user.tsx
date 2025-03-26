@@ -2,18 +2,18 @@ import BaseLayout from './base-layout';
 import { Img } from '@react-email/img';
 import { Column } from '@react-email/column';
 import { Row } from '@react-email/row';
-import { z } from 'zod';
+// import { z } from 'zod';
 import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 
 // Define schema for order details (adapt fields as needed)
-const orderSchema = z.object({
-  orderId: z.string(),
-  customerName: z.string(),
-  totalAmount: z.string(),
-  orderDate: z.string(),
-  status: z.enum(['accepted', 'rejected', 'pending']), // added status
-});
+// const orderSchema = z.object({
+//   orderId: z.string(),
+//   customerName: z.string(),
+//   totalAmount: z.string(),
+//   orderDate: z.string(),
+//   status: z.enum(['accepted', 'rejected', 'pending']), // added status
+// });
 
 const FinalOrderConfirmationEmailToUser = ({orderId,customerName,totalAmount,orderDate,status}:{orderId:string;customerName:string;totalAmount:string;orderDate:string,status:string}) =>{
   return (

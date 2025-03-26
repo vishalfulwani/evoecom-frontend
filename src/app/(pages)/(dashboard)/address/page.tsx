@@ -40,12 +40,12 @@ const Page = () => {
     } catch (error) {
       console.error('Error updating address:', error)
       const axiosError = error as AxiosError<ApiResponse>
-      let errorMessage = axiosError.response?.data.message
+      const errorMessage = axiosError.response?.data.message
       toast.error(errorMessage)
     }
   }
 
-    const { data: session, status } = useSession();
+    const { data: session} = useSession();
           console.log(session?.platform)
           useEffect(() => {
               console.log(session)

@@ -9,6 +9,7 @@ export async function GET() {
       const subscribers = await subscriptionModels.find({});
       return NextResponse.json(subscribers, { status: 200 });
     } catch (error) {
+      console.log(error)
       return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
   }

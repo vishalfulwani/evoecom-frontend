@@ -1,7 +1,7 @@
 'use client'
 
 import { ApiResponse } from "@/helpers/ApiResponse";
-import { IOrder } from "@/models/order.models";
+import { ICartItem, IOrder } from "@/models/order.models";
 // import { IOrder } from "@/models/order.models";
 import { IProduct } from "@/models/product.models";
 import { IUser } from "@/models/user.models";
@@ -10,13 +10,17 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../../../../../constants";
 
+type ProductWithQuantity = {
+    product: IProduct; // Assuming `Product` is already defined elsewhere
+    quantity: number;
+  };
+  
 
 const Page = () => {
 
-    const [isLoading, setIsLoading] = useState(false);
     const [orders, setOrders] = useState<IOrder[]>([]);
 
-    const [orderedProductsWithQuantity, setOrderedProductsWithQuantity] = useState<{ product: any; quantity: number }[]>([]);
+    const [orderedProductsWithQuantity, setOrderedProductsWithQuantity] = useState<{ product: IProduct; quantity: number }[]>([]);
     // const { data: session, status } = useSession();
     const [products, setProducts] = useState<IProduct[]>([])
 
@@ -38,7 +42,6 @@ const Page = () => {
         const fetchOrders = async () => {
             if (status !== "authenticated" || !session?.user?._id) return;
 
-            setIsLoading(true);
             try {
                 // const response = await axios.get<{ data: IOrder[] }>('/api/get-buy-order', {
                 const response = await axios.get<{ data: IOrder[] }>(`${API_BASE_URL}/get-buy-order`, {
@@ -46,15 +49,12 @@ const Page = () => {
                         userId: session?.user?._id, // Pass userId from session
                     },
                 });
-                setUserId(session?.user?._id)
                 const allOrders = response.data.data; // Set orders after fetching
                 const userOrders = allOrders.filter(order => order.userId.toString() === session.user._id);
                 setOrders(userOrders);
 
             } catch (error) {
                 console.error("Error fetching orders:", error);
-            } finally {
-                setIsLoading(false);
             }
         };
 
@@ -83,10 +83,11 @@ const Page = () => {
     useEffect(() => {
         if (orders && products) {
             // Initialize matchedProductsWithQuantity array within the effect
-            const matchedProductsWithQuantity = [] as any;
+            // const matchedProductsWithQuantity = [] as ;
+            const matchedProductsWithQuantity: ProductWithQuantity[] = [];
 
             orders.forEach((order) => {
-                order.items.forEach((item: any) => {
+                order.items.forEach((item:ICartItem) => {
                     // Find the matching product for each ordered item
                     const product = products.find((p) => String(p._id) === String(item.product));
 
@@ -109,27 +110,26 @@ const Page = () => {
 
 
     // user data
-    const [user, setUser] = useState<IUser[]>([])
-    const [userId, setUserId] = useState("")
+    // const [user, setUser] = useState<IUser[]>([])
 
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                // const allUsers = await axios.get<ApiResponse>('/api/get-all-users')
-                const allUsers = await axios.get<ApiResponse>(`${API_BASE_URL}/get-users`)
-                const userData = allUsers.data.data as []
+    // useEffect(() => {
+    //     const fetchUsers = async () => {
+    //         try {
+    //             // const allUsers = await axios.get<ApiResponse>('/api/get-all-users')
+    //             const allUsers = await axios.get<ApiResponse>(`${API_BASE_URL}/get-users`)
+    //             const userData = allUsers.data.data as []
 
-                const data = userData.filter((data: any) => data._id === session?.user?._id)
+    //             const data = userData.filter((data: IUser) => data._id === session?.user?._id)
 
-                setUser(data)
-            } catch (error) {
-                console.error("Error fetching users:", error)
-            }
-        }
+    //             setUser(data)
+    //         } catch (error) {
+    //             console.error("Error fetching users:", error)
+    //         }
+    //     }
 
-        fetchUsers()
-        console.log("ussser", user)
-    }, [])
+    //     fetchUsers()
+    //     console.log("ussser", user)
+    // }, [])
 
 
     return (

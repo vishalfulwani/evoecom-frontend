@@ -2,7 +2,6 @@ import BaseLayout from './base-layout';
 import { Img } from '@react-email/img';
 import { Column } from '@react-email/column';
 import { Row } from '@react-email/row';
-import { z } from 'zod';
 import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 
@@ -86,7 +85,7 @@ const ReturnRequestConfirmation = ({
       </Section>
       <Section className="p-[22px]">
         <Text className="m-0 text-[13px]">
-          If you have any questions, please don't hesitate to reach out.
+          If you have any questions, please don&apos;t hesitate to reach out.
         </Text>
       </Section>
     </BaseLayout>

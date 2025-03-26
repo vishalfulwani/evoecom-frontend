@@ -9,6 +9,7 @@ import { ApiResponse } from '@/helpers/ApiResponse';
 import { API_BASE_URL } from '../../../../constants';
 import { IProduct } from '@/models/product.models';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Categories() {
     const settings = {
@@ -96,7 +97,7 @@ export default function Categories() {
             <div className="container">
                 <div className="d-flex align-items-center">
                     <h5 className="text-uppercase mb-0">Browse Category</h5>
-                    <a href="/shop" className="btn btn-light ms-auto rounded-0">View All<i className="bx bx-chevron-right"></i></a>
+                    <Link href="/shop" className="btn btn-light ms-auto rounded-0">View All<i className="bx bx-chevron-right"></i></Link>
                 </div>
                 <hr />
                 <div className="product-grid">

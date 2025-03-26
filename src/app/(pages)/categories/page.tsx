@@ -7,6 +7,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../../../../constants";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Page = ()=>{
 
@@ -30,7 +31,7 @@ const Page = ()=>{
     
                 // Count products per category
                 const categoryMap: { [key: string]: number } = {};
-                productData.forEach((product: any) => {
+                productData.forEach((product: IProduct) => {
                     const category = product.category;
                     if (categoryMap[category]) {
                         categoryMap[category] += 1;
@@ -53,10 +54,10 @@ const Page = ()=>{
         fetchProducts();
     }, []);
 
-    const router = useRouter();
-    const handleCategoryClick = (category: string) => {
-        router.push(`/shop/${category}`);
-    };
+    // const router = useRouter();
+    // const handleCategoryClick = (category: string) => {
+    //     router.push(`/shop/${category}`);
+    // };
 
 
     return(
@@ -69,9 +70,9 @@ const Page = ()=>{
                         <div className="ms-auto">
                             <nav aria-label="breadcrumb">
                                 <ol className="breadcrumb mb-0 p-0">
-                                    <li className="breadcrumb-item"><a href="/"><i className="bx bx-home-alt"></i> Home</a>
+                                    <li className="breadcrumb-item"><Link href="/"><i className="bx bx-home-alt"></i> Home</Link>
                                     </li>
-                                    <li className="breadcrumb-item"><a href="/shop">Shop</a>
+                                    <li className="breadcrumb-item"><Link href="/shop">Shop</Link>
                                     </li>
                                     <li className="breadcrumb-item active" aria-current="page">Shop Categories</li>
                                 </ol>

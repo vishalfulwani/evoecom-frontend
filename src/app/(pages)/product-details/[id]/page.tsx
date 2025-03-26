@@ -34,6 +34,12 @@ const Page = () => {
     const [imgUrl, setImgUrl] = useState<string>("")
 
 
+    console.log(isSubmitting)
+    console.log(imgUrl)
+    console.log(alsoLikeProducts)
+    
+
+
     const dispatch = useDispatch();
 
     const handleAddToCart = (product: any) => {
@@ -115,9 +121,9 @@ const Page = () => {
     }, [products]);
 
 
-    const goToProductPage = (category: string, id: string) => {
-        router.push(`/shop/${category}/${id}`);
-    };
+    // const goToProductPage = (category: string, id: string) => {
+    //     router.push(`/shop/${category}/${id}`);
+    // };
 
 
 
@@ -425,7 +431,7 @@ const Page = () => {
                         <div className="product-grid">
 
                             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-                                {similarProducts?.map((product, index) => (
+                                {similarProducts?.map((product) => (
                                     <div className="col" key={product._id.toString()}>
                                         <ProductCard product={product} />
                                     </div>
